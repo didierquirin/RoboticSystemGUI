@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="us">
+<head>
+<meta charset="utf-8" />
+<title>Robotic system GUI</title>
+<!-- CSS for jquery-ui-->
+<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+
+<!-- Set up of GUI-->
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+
+<!--script type="text/javascript">
+    // Create a UI slider using JQuery UI.
+function init(){
+$( "#tabs" ).tabs();
+$( "#slider" ).slider({
+      range : 'min',
+      min : 0.73,
+      max : 4.0,
+      step:0.01,
+      value : 0.73,
+      slide : function(event,ui) {
+        $("#slidervalue").val(ui.value);
+      }
+});
+
+var initialValue = $("#slider").slider("option", "value");
+  $("#slidervalue").val(initialValue);
+  $("#slidervalue").change(function() {
+    var oldVal = $("#slider").slider("option", "value");
+    var newVal = $(this).val();
+    if (isNaN(newVal) || newVal < 0.73 || newVal > 4) {
+      $("#slidervalue").val(oldVal);
+    } else {
+      $("#slider").slider("option", "value", newVal);
+    }
+   });
+
+$( "#radioset" ).buttonset();
+
+
+/*
+
+$( "#spinner_pump_control" ).spinner({
+      min : 0.73,
+      max : 4.0,
+      step:0.01,
+      spin: function(event,ui) {
+$('#slider').slider("value",ui.value);
+}
+});
+    $('#speed-slider').slider({
+      range : 'min',
+      min : 0,
+      max : 100,
+      value : 0,
+      slide : function(event, ui) {
+        // Change the speed label.
+        $('#speed-label').html('Speed: ' + ui.value + '%');
+        // Scale the speed.
+        teleop.scale = (ui.value / 100.0);
+      }
+    });
+*/
+}
+
+</script-->
+
+<!-- Setup of ROS-->
+<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+<!--body onload="init()"-->
+
+<h1>Robotic system GUI</h1>
+<h2 class="demoHeaders">Select mode</h2>
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Manual setup for printing</a></li>
+		<li><a href="#tabs-2">Automatic setup for printing</a></li>
+	</ul>
+	<div id="tabs-1">
+
+<h3 class="demoHeaders">Flow rate</h3>
+<div id="slider"></div>
+<input id="slidervalue" type="text">
+<!-- Checkboxradio -->
+<h3 class="demoHeaders">Pump on/off</h3>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Pump on</label>
+		<input type="radio" id="radio2" name="radio"><label for="radio2">Pump off</label>
+	</div>
+</form>
+<h3 class="demoHeaders">Layer height</h3>
+<input id="layerheight" type="text">
+<h3 class="demoHeaders">Print speed</h3>
+<input id="printspeed" type="text">
+<h3 class="demoHeaders">Other paramenter</h3>
+<input id="otherparameter" type="text">
+
+</div>
+	<div id="tabs-2">Import gcode file. List robot parameters</div>
+</div>
+<div id=websocket_status class="ui-widget">
+</body>
+</html>
+
+<script type="text/javascript">
+    // Create a UI slider using JQuery UI.
+//function init(){
+$( "#tabs" ).tabs();
+$( "#slider" ).slider({
+      range : 'min',
+      min : 0.73,
+      max : 4.0,
+      step:0.01,
+      value : 0.73,
+      slide : function(event,ui) {
+        $("#slidervalue").val(ui.value);
+      }
+});
+
+var initialValue = $("#slider").slider("option", "value");
+  $("#slidervalue").val(initialValue);
+  $("#slidervalue").change(function() {
+    var oldVal = $("#slider").slider("option", "value");
+    var newVal = $(this).val();
+    if (isNaN(newVal) || newVal < 0.73 || newVal > 4) {
+      $("#slidervalue").val(oldVal);
+    } else {
+      $("#slider").slider("option", "value", newVal);
+    }
+   });
+
+$( "#radioset" ).buttonset();
+
+
+/*
+
+$( "#spinner_pump_control" ).spinner({
+      min : 0.73,
+      max : 4.0,
+      step:0.01,
+      spin: function(event,ui) {
+$('#slider').slider("value",ui.value);
+}
+});
+    $('#speed-slider').slider({
+      range : 'min',
+      min : 0,
+      max : 100,
+      value : 0,
+      slide : function(event, ui) {
+        // Change the speed label.
+        $('#speed-label').html('Speed: ' + ui.value + '%');
+        // Scale the speed.
+        teleop.scale = (ui.value / 100.0);
+      }
+    });
+*/
+//}
+
+</script>
+
+<script type="text/javascript" type="text/javascript">
+// This function connects to the rosbridge server running on the local computer on port 9090
+function startConnection()
+{
+var rbServer = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+ });
+
+//var feedback_websocket = ;
+
+
+
+ // This function is called upon the rosbridge connection event
+ rbServer.on('connection', function() {
+
+     // Write appropriate message to #websocket_status div when successfully connected to rosbridge
+    $("#websocket_status").removeClass();
+    $("#websocket_status").addClass('ui-state-checked ui-corner-all');
+    $("#websocket_status").html('<p><span class="ui-icon ui-icon-check" style="float: left; margin-right:.3em;"></span>'+'Connected to websocket server'+'</p>');
+
+//     var fbDiv = document.getElementById('feedback');
+//     fbDiv.innerHTML += "<p>Connected to websocket server.</p>";
+ });
+
+// This function is called when there is an error attempting to connect to rosbridge
+rbServer.on('error', function(error) {
+    // Write appropriate message to #websocket_status div upon error when attempting to connect to rosbridge
+    $("#websocket_status").removeClass();
+    $("#websocket_status").addClass('ui-state-error ui-corner-all');
+    $("#websocket_status").html('<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right:.3em;"></span>'+'Error connecting to websocket server'+'</p>');
+
+//    var fbDiv = document.getElementById('feedback');
+//    fbDiv.innerHTML += "<p>Error connecting to websocket server.</p>";
+
+});
+
+// This function is called when the connection to rosbridge is closed
+rbServer.on('close', function() {
+    // Write appropriate message to #websocket_status div upon closing connection to rosbridge
+    $("#websocket_status").removeClass();
+    $("#websocket_status").addClass('ui-state-error ui-corner-all');
+    $("#websocket_status").html('<p><span class="ui-icon ui-icon-info" style="float: left; margin-right:.3em;"></span>'+'Connection to websocket server closed'+'</p>');
+startConnection();
+
+//    var fbDiv = document.getElementById('feedback');
+//    fbDiv.innerHTML += "<p>Connection to websocket server closed.</p>";
+
+ });
+
+
+
+
+// Create topic /Flow_rate_value
+var flowrate_msg_Topic = new ROSLIB.Topic({
+    ros : rbServer,
+    name : '/Flow_rate_value',
+    messageType : 'std_msgs/Float32'
+});
+
+// Create topic /Switch_pump_off
+var toggle_msg_Topic = new ROSLIB.Topic({
+    ros : rbServer,
+    name : '/Switch_pump_off',
+    messageType : 'std_msgs/Bool'
+});
+
+//Subscribe to topic /pump_com
+ var listener = new ROSLIB.Topic({
+    ros : rbServer,
+    name : '/pump_com',
+    messageType : 'std_msgs/String'
+  });
+
+  listener.subscribe(function(message) {
+    var pump_message = document.getElementById('pump_info');
+    pump_message.innerHTML = message.data;
+  //  listener.unsubscribe();
+  });
+
+// Initalizes all properties to zero. They will be set to appropriate values before we publish this message.
+var flowrate_msg = new ROSLIB.Message(
+{data : 0.0
+});
+var toggle_msg = new ROSLIB.Message(
+{data : true
+});
+
+var status = true;
+}
+startConnection();
+/* This function:
+ - retrieves numeric values from the text boxes
+ - assigns these values to the appropriate values in the twist message
+ - publishes the message to the cmd_vel topic.
+ */
+/*
+function pubFlowrate() {
+    
+//    Set the appropriate value of message object according to value in text box
+    
+    var flowrate_value = 0.0;
+    var voltage_value = 0.0;
+    var rounded_voltage = 0.0;
+    var count_value = 0;
+
+    // get values from text input field. Note for simplicity we are not validating.
+    flowrate_value = 0.0 + Number(document.getElementById('flowrate').value);
+    if (flowrate_value < 0.73) {flowrate_value = 0.73;}
+    if (flowrate_value > 4) {flowrate_value = 4;}
+
+    // Set the appropriate values on the message object
+    flowrate_msg.data = flowrate_value;
+
+    // Publish the message 
+    flowrate_msg_Topic.publish(flowrate_msg);
+
+    //Calculate variables
+    voltage_value = flowrate_value * 2.53 - 1.91;
+
+    if (voltage_value < 0) {voltage_value = 0;}
+    count_value = Math.round(voltage_value *463.86);
+
+   rounded_voltage = +(Math.round(voltage_value + "e+2")  + "e-2");
+
+    //Update the page
+    document.getElementById('flowrate_display').innerHTML = flowrate_value;
+    document.getElementById('voltage_display').innerHTML = rounded_voltage;
+    document.getElementById('count_display').innerHTML = count_value;
+}
+
+function pubPumpStatus(status) {
+    
+ //   Set the appropriate value of message object according to value in text box
+    
+    var toggle_value = true;
+
+    // get values from pump status buttons
+
+
+	if (status==true) {
+	toggle_value = true;
+	document.getElementById('pump_status_display').innerHTML = "Pump switched off";
+
+	}
+	else if (status==false) {
+		toggle_value = false;
+	document.getElementById('pump_status_display').innerHTML = "Pump switched on";
+
+	}
+
+
+    // Set the appropriate values on the message object
+    toggle_msg.data = toggle_value;
+
+    // Publish the message 
+    toggle_msg_Topic.publish(toggle_msg);
+}
+*/
+</script>
