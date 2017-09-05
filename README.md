@@ -4,8 +4,8 @@ Guideline for flow rate control of the pump2pictor using ROS and arduino
 
 Installations needed:
 - rosserial installed to communicate with Arduino
-- LAMP installed to create web server
-- rosbridge installed to communicate with html website
+- rosbridge installed to communicate with html website (local port 9090)
+- LAMP installed to create web server (not necessary if only used locally. Needed if control is done remotely)
 
 Launch:
 roslaunch rosbridge_server rosbridge_websocket.launch
